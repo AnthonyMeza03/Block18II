@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Player Roster</title>
+<style>
+  .player {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .player img {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+</style>
+</head>
+<body>
+<div id="roster">
+</div>
+
+<script>
+  const players = [
+    { name: "Player 1", breed: "Breed 1", team: "Team A", image: "puppy1.jpg" },
+    { name: "Player 2", breed: "Breed 2", team: "Unassigned", image: "puppy2.jpg" },
+  ];
+  function renderPlayers() {
+    const rosterDiv = document.getElementById('roster');
+    rosterDiv.innerHTML = ''; 
+    players.forEach(player => {
+      const playerDiv = document.createElement('div');
+      playerDiv.classList.add('player');
+      playerDiv.innerHTML = `
+        <img src="${player.image}" alt="${player.name}">
+        <span>Name: ${player.name}</span><br>
+        <span>Breed: ${player.breed}</span><br>
+        <span>Team: ${player.team}</span><br>
+        <button onclick="showDetails('${player.name}')">See details</button>
+        <button onclick="removePlayer('${player.name}')">Remove</button>
+      `;
+      rosterDiv.appendChild(playerDiv);
+    });
+  }
+  function showDetails(name) {
+    const player = players.find(player => player.name === name);
+    if (player) {
+      alert(`Name: ${player.name}\nBreed: ${player.breed}\nTeam: ${player.team}`);
+      
+    }
+  }
+  function removePlayer(name) {
+    const index = players.findIndex(player => player.name === name);
+    if (index !== -1) {
+      players.splice(index, 1);
+      renderPlayers();
+    }
+  }
+  renderPlayers();
+</script>
+</body>
+</html>
